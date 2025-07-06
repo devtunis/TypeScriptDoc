@@ -22,3 +22,32 @@ function  Button ({HandelCLickFunction}:HandelClickByReactFunction) {
 }; 
 
 export default Button;
+
+
+
+
+
+
+// this good way for get all div from it 
+
+<Button HandelCLickFunction ={(e)=>console.log(e.currentTarget)}/>
+
+
+
+ import  React from 'react';
+type HandelClickByReactFunction ={
+      HandelCLickFunction:(event  : React.MouseEvent<HTMLDivElement>)=>void
+} 
+
+const Button: React.FC <HandelClickByReactFunction>= ({HandelCLickFunction}) => {
+    return (
+      <div onClick={HandelCLickFunction}>
+            <div>hello this react</div>
+            <button >Click me negga</button>
+      </div>
+    );
+}; 
+
+export default Button;
+
+ 
