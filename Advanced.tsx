@@ -49,5 +49,24 @@ const Button: React.FC <HandelClickByReactFunction>= ({HandelCLickFunction}) => 
 }; 
 
 export default Button;
+// look this bes idea  how can send  id from the butto
+import  React from 'react';
+type HandelClickByReactFunction ={
+      HandelCLickFunction:(event  : React.MouseEvent<HTMLButtonElement> ,id: number)=>void
+} 
+
+const Button: React.FC <HandelClickByReactFunction>= ({HandelCLickFunction}) => {
+    return <button onClick={(e)=>HandelCLickFunction(e,100)}>Click me negga</button>;
+}; 
+
+export default Button;
+
+
+// and  how recive it 
+
+   <Button HandelCLickFunction ={(e,id)=>console.log(e.target,id)}/>
+
+
+
 
  
