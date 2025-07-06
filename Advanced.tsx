@@ -67,6 +67,16 @@ export default Button;
    <Button HandelCLickFunction ={(e,id)=>console.log(e.target,id)}/>
 
 
+// new thign how export and  import the data 
+ 
+ export type  Props =  {
+        name : string,
+        lastname : string,
+        age ?:number,
 
+ } 
+// so you do it like this 
+ import type { Props } from "../exportTypes/DeclareTypes"   // and this way how you import it 
+ 
 
  
