@@ -23,3 +23,5 @@
 //     window.removeEventListener("load", handleLoad);
 //   };
 // }, []);
+let value: any = "hello";
+let length = (value as string).length;
