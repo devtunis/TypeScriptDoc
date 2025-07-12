@@ -47,7 +47,7 @@ const Button: React.FC <HandelClickByReactFunction>= ({HandelCLickFunction}) => 
       </div>
     );
 }; 
-
+ 
 export default Button;
 // look this bes idea  how can send  id from the butto
 import  React from 'react';
