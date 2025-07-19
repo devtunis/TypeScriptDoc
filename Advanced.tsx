@@ -2,7 +2,7 @@
 mport  React from 'react';
 type HandelClickByReactFunction ={
       HandelCLickFunction:()=>void
-} 
+}  
 
 const Button: React.FC <HandelClickByReactFunction>= ({HandelCLickFunction}) => {
     return <button onClick={HandelCLickFunction}>Click me negga</button>;
