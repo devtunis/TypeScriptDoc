@@ -1,0 +1,70 @@
+
+
+const GITHUB_CLIENT_ID = "Ov23livEf6T9MbJhnoZi";
+const GITHUB_CLIENT_SECRET = "dbaa469c4317c76209bce0b3166a08e142e72c42";
+const GITHUB_REDIRECT_URI = "http://localhost:3000/auth/github/callback";
+
+
+
+app.get("/auth/github", (req: Request, res: Response) => {
+  const redirectUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(
+    GITHUB_REDIRECT_URI
+  )}&scope=user`;
+  res.redirect(redirectUrl);
+});
+
+
+// step2
+
+// Step 2: GitHub redirects here after user authorizes
+app.get("/auth/github/callback", async (req: Request, res: Response) => {
+  const code = req.query.code as string;
+
+  try {
+    // Step 3: Exchange code for access token
+    const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        client_id: GITHUB_CLIENT_ID,
+        client_secret: GITHUB_CLIENT_SECRET,
+        code,
+      }),
+    });
+
+    const { access_token } = await tokenRes.json();
+
+    // Step 4: Use access token to fetch user info
+    const userRes = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    const user = await userRes.json();
+
+    // Optional: Fetch user's email
+    const emailRes = await fetch("https://api.github.com/user/emails", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    const emails = await emailRes.json();
+    const primaryEmail = emails.find((e: any) => e.primary)?.email;
+
+    // Step 5: Send user info as response
+    res.status(200).json({
+      name: user.name,
+      username: user.login,
+      avatar: user.avatar_url,
+      email: primaryEmail,
+    });
+  } catch (error) {
+    console.error("GitHub Auth Error:", error);
+    res.status(500).json({ error: "GitHub Authentication Failed" });
+  }
+});
+
+ 
