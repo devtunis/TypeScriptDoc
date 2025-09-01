@@ -3,11 +3,11 @@ import "./styles.css";
 
 export default function App() {
   const data = useRef({ counter: 0 });
-  const [, setTick] = useState(0); // dummy state to force re-render
+  const [, setTick] = useState(0);  
 
   const increment = () => {
     data.current.counter++;
-    setTick(tick => tick + 1); // force update
+    setTick(tick => tick + 1);  
   };
 
   return (
